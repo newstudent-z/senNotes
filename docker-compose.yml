@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: sen-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-root123}
+      MYSQL_DATABASE: kamanote_tech
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  redis:
+    image: redis:7-alpine
+    container_name: sen-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: sen-backend
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root123}
+    ports:
+      - "8080:8080"
+    volumes:
+      - upload-data:/app/uploads
+
+  frontend:
+    build: ./frontend
+    container_name: sen-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mysql-data:
+  upload-data:

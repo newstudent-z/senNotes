@@ -30,7 +30,7 @@ const DownloadNoteItem: React.FC = () => {
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = '卡码笔记' + Date.now() + '.md'
+      link.download = 'sen笔记' + Date.now() + '.md'
       link.style.display = 'none'
       document.body.appendChild(link)
       link.click()

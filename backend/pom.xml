@@ -15,8 +15,7 @@
     <description>kamaNotes</description>
     <packaging>jar</packaging>
     <properties>
-        <java.version>23</java.version>
-        <lombok.version>1.18.36</lombok.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -51,7 +50,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
             <optional>true</optional>
         </dependency>
         <dependency>

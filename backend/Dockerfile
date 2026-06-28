@@ -1,7 +1,7 @@
 
 
 # 构建阶段
-FROM maven:3.9.9-eclipse-temurin-23 AS build
+FROM maven:3.9.9-amazoncorretto-17 AS build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 RUN mvn -B clean package -DskipTests
 
 # 运行阶段
-FROM eclipse-temurin:23-jre
+FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
